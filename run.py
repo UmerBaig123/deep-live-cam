@@ -15,6 +15,9 @@ from modules.face_analyser import get_one_face
 from modules.handlers import deepfake_image,deep_fake_video,get_unique_faces_from_target_image,get_unique_faces_from_target_video,deep_fake_live
 from datetime import datetime
 import random
+if not os.path.exists("temp_source_output"):
+    os.makedirs("temp_source_output")
+    print("Created folder: temp_source_output")
 def get_random_number():
     return random.randint(0, 1000)
 print(torch.version.cuda) 
@@ -83,8 +86,8 @@ class image_processes:
       now = datetime.now()
       formatted_now = now.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]  # Truncate to 3 decimal places for milliseconds
       random_no = get_random_number()
-      source_path = f"temp_source_output/source-{random_no}-{formatted_now}.jpeg" 
-      output_path = f"temp_source_output/output-{random_no}-{formatted_now}.jpeg"
+      source_path = f"temp_source_output/source-{random_no}.jpeg" 
+      output_path = f"temp_source_output/output-{random_no}.jpeg"
       modules.globals.output_path = output_path
       if target_image is None:
           return "No target image uploaded!", None
@@ -127,8 +130,8 @@ class image_processes:
       now = datetime.now()
       formatted_now = now.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]  # Truncate to 3 decimal places for milliseconds
       random_no = get_random_number()
-      source_path = f"temp_source_output/source-{random_no}-{formatted_now}.jpeg" 
-      output_path = f"temp_source_output/output-{random_no}-{formatted_now}.jpeg"
+      source_path = f"temp_source_output/source-{random_no}.jpeg" 
+      output_path = f"temp_source_output/output-{random_no}.jpeg"
       cv2.imwrite(output_path, cv2.cvtColor(target_np, cv2.COLOR_BGR2RGB))
       modules.globals.target_path = output_path
       source_np = np.array(source_face)
@@ -230,9 +233,9 @@ class video_processes:
       now = datetime.now()
       formatted_now = now.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]  # Truncate to 3 decimal places for milliseconds
       random_no = get_random_number()
-      source_path = f"temp_source_output/source-{random_no}-{formatted_now}.jpeg" 
-      input_path = f"temp_source_output/input-{random_no}-{formatted_now}.mp4" 
-      output_path = f"temp_source_output/output-{random_no}-{formatted_now}.mp4"
+      source_path = f"temp_source_output/source-{random_no}.jpeg" 
+      input_path = f"temp_source_output/input-{random_no}.mp4" 
+      output_path = f"temp_source_output/output-{random_no}.mp4"
       modules.globals.output_path = output_path
       modules.globals.target_path = input_path
       modules.globals.source_path= source_path
@@ -255,9 +258,9 @@ class video_processes:
       now = datetime.now()
       random_no = get_random_number()
       formatted_now = now.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]  # Truncate to 3 decimal places for milliseconds
-      source_path = f"temp_source_output/source-{random_no}-{formatted_now}.jpeg" 
-      input_path = f"temp_source_output/input-{random_no}-{formatted_now}.mp4" 
-      output_path = f"temp_source_output/output-{random_no}-{formatted_now}.mp4"
+      source_path = f"temp_source_output/source-{random_no}.jpeg" 
+      input_path = f"temp_source_output/input-{random_no}.mp4" 
+      output_path = f"temp_source_output/output-{random_no}.mp4"
       modules.globals.output_path = output_path
       modules.globals.target_path = input_path
       modules.globals.source_path= source_path
