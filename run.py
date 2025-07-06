@@ -357,4 +357,4 @@ with gr.Blocks(css=css) as demo:
     with gr.Tab("Live Mode"):
       live_processes.ui()
 # Launch the UI
-demo.launch(share=False,debug=True, server_name="0.0.0.0")
+demo.launch(share=True,debug=True)
