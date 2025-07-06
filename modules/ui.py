@@ -9,6 +9,7 @@ from PIL import Image, ImageOps
 import shutil
 import time
 import json
+from modules.processors.frame import face_enhancer
 import modules.globals
 from modules.utilities import create_temp,extract_frames,get_temp_frame_paths,detect_fps,create_video,restore_audio,move_temp,clean_temp
 import modules.metadata
@@ -1232,15 +1233,14 @@ def deep_fake_image(source_path: str, target_path: str,output_path: str,enhance=
     """
      
     if source_path and target_path:  
-        modules.globals.frame_processors = ['face_swapper']
+        modules.globals.frame_processors = ['face_swapper'] 
+        frame_processors = get_frame_processors_modules(
+            modules.globals.frame_processors
+        )
         if enhance:
-          modules.globals.frame_processors.append("face_enhancer")
-        print("temp_frame",get_frame_processors_modules(
-                modules.globals.frame_processors
-        ))
-        for frame_processor in get_frame_processors_modules(
-                modules.globals.frame_processors
-        ):
+            frame_processors.append(face_enhancer)
+        print("temp_frame",frame_processors)
+        for frame_processor in frame_processors:
             print("frame processor",frame_processor)
             print("source path",source_path)
             frame_processor.process_image(
